@@ -1,5 +1,5 @@
 hs.logger.defaultLogLevel="info"
-reload_watcher = hs.pathwatcher.new(hs.configdir, hs.reload):start()
+local reload_watcher = hs.pathwatcher.new(hs.configdir, hs.reload):start()
 
 hs.loadSpoon("SpoonInstall")
 spoon.SpoonInstall.repos.skrypka = {
@@ -90,6 +90,16 @@ spoon.SpoonInstall:andUse("URLDispatcher", {
   },
   start = true
 })
+
+function clearFileAttributes(paths, flagTables)
+  for i, path in ipairs(paths) do
+    if flagTables[i].itemCreated and flagTables[i].itemIsFile then
+      hs.execute('xattr -r -c "' .. path .. '"')
+    end
+  end
+end
+local folderWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/Downloads/", clearFileAttributes):start()
+
 
 function openWithFinder(path)
   os.execute('open '..path)
