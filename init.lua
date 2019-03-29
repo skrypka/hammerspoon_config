@@ -91,15 +91,7 @@ spoon.SpoonInstall:andUse("URLDispatcher", {
   start = true
 })
 
-function clearFileAttributes(paths, flagTables)
-  for i, path in ipairs(paths) do
-    if flagTables[i].itemCreated and flagTables[i].itemIsFile then
-      hs.execute('xattr -r -c "' .. path .. '"')
-    end
-  end
-end
-local folderWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/Downloads/", clearFileAttributes):start()
-
+local xattrTimer = hs.timer.doEvery(60 * 60 * 8, function() hs.execute("xattr -c -r ~/Downloads") end)
 
 function openWithFinder(path)
   os.execute('open '..path)
