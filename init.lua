@@ -63,11 +63,9 @@ spoon.SpoonInstall:andUse("MouseCircle", {
 spoon.SpoonInstall:andUse("URLDispatcher", {
   config = {
     url_patterns = {
-      { "https?://vmanager.*", "com.google.Chrome" },
       { "https?://*.rainforestqa.*", "com.google.Chrome" },
       { "https?://*.accounts.google.com", "com.google.Chrome" },
       { "https?://paper.dropbox.com",  "com.google.Chrome" },
-      { "https?://rainforest.*",  "com.google.Chrome" }
     },
     default_handler = "org.mozilla.firefox"
   },

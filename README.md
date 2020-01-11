@@ -1,3 +1,5 @@
 # Personal Hammerspoon config
 
-Some features will not work for you. I need to publish all my personal Spoons first.
+Hammerspoon is my main tool for many years, so overtime I changed it a lot, but currently it's pretty stable.
+
+Most interesting/new parts is PushToTalk Spoon. Check it out!
