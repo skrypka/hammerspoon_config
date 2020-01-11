@@ -1,6 +1,8 @@
 hs.logger.defaultLogLevel="info"
 local reload_watcher = hs.pathwatcher.new(hs.configdir, hs.reload):start()
 
+require("hs.ipc")
+
 hs.loadSpoon("SpoonInstall")
 spoon.SpoonInstall.repos.skrypka = {
   url = "https://github.com/skrypka/Spoons",
@@ -28,47 +30,15 @@ hs.hotkey.bind({"alt", "cmd"}, "f", function()
   win:setFullScreen(not win:isFullScreen())
 end)
 
-MouseCircle = require('MouseCircle')
-
-spoon.SpoonInstall:andUse("MacroS", {
-  start = true,
-  hotkeys = {
-    toggle_recording = {{"alt", "cmd"}, 'm' },
-    replay_recording = {{"alt", "cmd", "shift"}, "m"},
-  },
-})
-
-spoon.SpoonInstall:andUse("BingDaily", {
-  repo = 'skrypka',
-  start = true,
-  config = { changeAllSpaces = true }
-})
-
 spoon.SpoonInstall:andUse("TextClipboardHistory", {
   start = true,
   config = { show_in_menubar = false, paste_on_select = true },
 })
-spoon.SpoonInstall:andUse("WifiNotifier", { start = true })
 spoon.SpoonInstall:andUse("PopupTranslateSelection")
 spoon.SpoonInstall:andUse("Caffeine", { start = true })
 
-spoon.SpoonInstall:andUse("PomodoroRed", {
-  start = true,
-  config = {
-    user_update_callback = function(status)
-      local path = "/Users/roman/code/chroma/DerivedData/chroma/Build/Products/Release/chroma"
-      if status == "work" then
-        hs.execute(path .. " 4 1 0 0 static")
-      elseif status == "relax" then
-        hs.execute(path .. " 4 0 1 1 static")
-      else
-        hs.execute(path .. " 4 0 1 0 static")
-      end
-    end
-  }
-})
-
 spoon.SpoonInstall:andUse("EasySuperGenPass", {
+  repo = 'skrypka',
   hotkeys = {
     paste_password = {{"alt", "cmd"}, 'P' },
   },
@@ -78,14 +48,27 @@ spoon.SpoonInstall:andUse("EasySuperGenPass", {
   }
 })
 
-spoon.SpoonInstall:andUse("PushTalk", { start = true })
+spoon.SpoonInstall:andUse("PushToTalk", {
+  repo = 'skrypka',
+  start = true,
+  config = {
+    app_switcher = { ['zoom.us'] = 'push-to-talk' }
+  }
+})
+
+spoon.SpoonInstall:andUse("MouseCircle", {
+  repo = 'skrypka',
+})
 
 spoon.SpoonInstall:andUse("URLDispatcher", {
   config = {
     url_patterns = {
-      { "https?://vk.com",  "com.operasoftware.Opera" },
+      { "https?://vmanager.*", "com.google.Chrome" },
+      { "https?://*.rainforestqa.*", "com.google.Chrome" },
+      { "https?://*.accounts.google.com", "com.google.Chrome" },
+      { "https?://paper.dropbox.com",  "com.google.Chrome" },
+      { "https?://rainforest.*",  "com.google.Chrome" }
     },
-    -- default_handler = "com.google.Chrome"
     default_handler = "org.mozilla.firefox"
   },
   start = true
@@ -102,7 +85,7 @@ spoon.SpoonInstall:andUse("RecursiveBinder")
 singleKey = spoon.RecursiveBinder.singleKey
 hs.hotkey.bind({}, 'F19', spoon.RecursiveBinder.recursiveBind({
   [singleKey('space', 'Hints')] = hs.hints.windowHints,
-  [singleKey('/', 'Mic Toggle')] = function() spoon.PushTalk.toggle_states({3, 4}) end,
+  [singleKey('/', 'Mic Toggle')] = function() spoon.PushToTalk:toggleStates({'push-to-talk', 'release-to-talk'}) end,
   [singleKey('f', 'file+')] = {
      [singleKey('d', 'Download')] = function() openWithFinder('~/Downloads') end,
   },
@@ -119,7 +102,7 @@ hs.hotkey.bind({}, 'F19', spoon.RecursiveBinder.recursiveBind({
     [singleKey('d', 'Dotfiles')] = function() hs.execute("code ~/code/dotfiles", true) end,
   },
   [singleKey('t', 'toggle+')] = {
-    [singleKey('m', 'MouseCircle')] = function() MouseCircle:toogle() end,
+    [singleKey('m', 'MouseCircle')] = function() spoon.MouseCircle:toggle() end,
   },
   [singleKey('a', 'app+')] = {
      [singleKey('a', 'ActivityMonitor')] = function() hs.application.launchOrFocus('Activity Monitor') end,
