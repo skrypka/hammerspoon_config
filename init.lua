@@ -40,6 +40,7 @@ spoon.SpoonInstall:andUse("SleepCorners", { start = true })
 
 spoon.SpoonInstall:andUse("EasySuperGenPass", {
   repo = 'skrypka',
+  svn = true,
   hotkeys = {
     paste_password = {{"alt", "cmd"}, 'P' },
   },
@@ -52,13 +53,14 @@ spoon.SpoonInstall:andUse("EasySuperGenPass", {
 spoon.SpoonInstall:andUse("PushToTalk", {
   repo = 'skrypka',
   start = true,
+  svn = true,
   config = {
     app_switcher = { ['zoom.us'] = 'push-to-talk' }
   }
 })
 
 spoon.SpoonInstall:andUse("WatsonStatus", { repo = 'skrypka', start = true, svn = true })
-spoon.SpoonInstall:andUse("MouseCircle", { repo = 'skrypka' })
+spoon.SpoonInstall:andUse("MouseCircle", { repo = 'skrypka', svn = true })
 
 spoon.SpoonInstall:andUse("URLDispatcher", {
   config = {
