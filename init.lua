@@ -36,6 +36,7 @@ spoon.SpoonInstall:andUse("TextClipboardHistory", {
 })
 spoon.SpoonInstall:andUse("PopupTranslateSelection")
 spoon.SpoonInstall:andUse("Caffeine", { start = true })
+spoon.SpoonInstall:andUse("SleepCorners", { start = true })
 
 spoon.SpoonInstall:andUse("EasySuperGenPass", {
   repo = 'skrypka',
@@ -56,16 +57,16 @@ spoon.SpoonInstall:andUse("PushToTalk", {
   }
 })
 
-spoon.SpoonInstall:andUse("MouseCircle", {
-  repo = 'skrypka',
-})
+spoon.SpoonInstall:andUse("WatsonStatus", { repo = 'skrypka', start = true })
+spoon.SpoonInstall:andUse("MouseCircle", { repo = 'skrypka' })
 
 spoon.SpoonInstall:andUse("URLDispatcher", {
   config = {
     url_patterns = {
       { "https?://*.rainforestqa.*", "com.google.Chrome" },
       { "https?://*.accounts.google.com", "com.google.Chrome" },
-      { "https?://paper.dropbox.com",  "com.google.Chrome" },
+      { "https?://*.dropbox.com",  "com.google.Chrome" },
+      { "https?://*.zoom.us", "com.google.Chrome" },
     },
     default_handler = "org.mozilla.firefox"
   },
