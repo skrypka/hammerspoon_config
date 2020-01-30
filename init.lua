@@ -57,7 +57,7 @@ spoon.SpoonInstall:andUse("PushToTalk", {
   }
 })
 
-spoon.SpoonInstall:andUse("WatsonStatus", { repo = 'skrypka', start = true })
+spoon.SpoonInstall:andUse("WatsonStatus", { repo = 'skrypka', start = true, svn = true })
 spoon.SpoonInstall:andUse("MouseCircle", { repo = 'skrypka' })
 
 spoon.SpoonInstall:andUse("URLDispatcher", {
