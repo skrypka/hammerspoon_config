@@ -59,7 +59,6 @@ spoon.SpoonInstall:andUse("PushToTalk", {
   }
 })
 
-spoon.SpoonInstall:andUse("WatsonStatus", { repo = 'skrypka', start = true, svn = true })
 spoon.SpoonInstall:andUse("MouseCircle", { repo = 'skrypka', svn = true })
 
 spoon.SpoonInstall:andUse("URLDispatcher", {
@@ -76,6 +75,19 @@ spoon.SpoonInstall:andUse("URLDispatcher", {
 })
 
 local xattrTimer = hs.timer.doEvery(60 * 60 * 8, function() hs.execute("xattr -c -r ~/Downloads") end)
+
+-- exit Zoom with Power key
+local function eventTapWatcher(event)
+  if event:systemKey().key == "POWER" and event:systemKey().down then
+    front = hs.application.frontmostApplication()
+    if front:name() == "zoom.us" then
+      front:kill9()
+    end
+  end
+end
+local event_tap_watcher = hs.eventtap.new({hs.eventtap.event.types.NSSystemDefined}, eventTapWatcher)
+event_tap_watcher:start()
+--
 
 function openWithFinder(path)
   os.execute('open '..path)
