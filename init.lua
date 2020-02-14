@@ -35,6 +35,8 @@ spoon.SpoonInstall:andUse("TextClipboardHistory", {
   config = { show_in_menubar = false, paste_on_select = true },
 })
 spoon.SpoonInstall:andUse("PopupTranslateSelection")
+
+hs.caffeinate.set("displayIdle", true, true)
 spoon.SpoonInstall:andUse("Caffeine", { start = true })
 spoon.SpoonInstall:andUse("SleepCorners", { start = true })
 
@@ -74,10 +76,10 @@ spoon.SpoonInstall:andUse("URLDispatcher", {
   start = true
 })
 
-local xattrTimer = hs.timer.doEvery(60 * 60 * 8, function() hs.execute("xattr -c -r ~/Downloads") end)
+xattrTimer = hs.timer.doEvery(60 * 60 * 8, function() hs.execute("xattr -c -r ~/Downloads") end)
 
 -- exit Zoom with Power key
-local function eventTapWatcher(event)
+function zoom_event_tap_watcher(event)
   if event:systemKey().key == "POWER" and event:systemKey().down then
     front = hs.application.frontmostApplication()
     if front:name() == "zoom.us" then
@@ -85,7 +87,7 @@ local function eventTapWatcher(event)
     end
   end
 end
-local event_tap_watcher = hs.eventtap.new({hs.eventtap.event.types.NSSystemDefined}, eventTapWatcher)
+event_tap_watcher = hs.eventtap.new({hs.eventtap.event.types.NSSystemDefined}, zoom_event_tap_watcher)
 event_tap_watcher:start()
 --
 
