@@ -38,7 +38,6 @@ spoon.SpoonInstall:andUse("PopupTranslateSelection")
 
 hs.caffeinate.set("displayIdle", true, true)
 spoon.SpoonInstall:andUse("Caffeine", { start = true })
-spoon.SpoonInstall:andUse("SleepCorners", { start = true })
 
 spoon.SpoonInstall:andUse("EasySuperGenPass", {
   repo = 'skrypka',
@@ -53,9 +52,7 @@ spoon.SpoonInstall:andUse("EasySuperGenPass", {
 })
 
 spoon.SpoonInstall:andUse("PushToTalk", {
-  repo = 'skrypka',
   start = true,
-  svn = true,
   config = {
     app_switcher = { ['zoom.us'] = 'push-to-talk' }
   }
